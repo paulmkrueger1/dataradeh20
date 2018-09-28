@@ -1,0 +1,8 @@
+requests
+jupyter
+pandas
+snowflake-connector-python
+snowflake-sqlalchemy
+unidecode
+money
+babel
