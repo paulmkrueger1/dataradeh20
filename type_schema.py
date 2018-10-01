@@ -113,7 +113,7 @@ class Product(object):
     def __init__(self):
         self.uid: ProductUID
         self.date_added: datetime
-        self.uploader_uid: Union[VendorUID]
+        self.uploader_uid: Union[VendorUID, BrandUID]
         self.brand_uid: BrandUID
         self.image_paths: List[str]
 
