@@ -4,5 +4,5 @@ pandas
 snowflake-connector-python
 snowflake-sqlalchemy
 unidecode
-money
-babel
+google-cloud-bigquery
+google-cloud-bigtable
