@@ -108,24 +108,11 @@ def generate_event_type_map(limit=100000):
 
 	return extract_event_types(out_df)
 
-def get_user_session(user_id=None, session_number=None, event_types=[], allow_anon=False):
+def get_random_session(event_types):
 	query = """
-	    SELECT client_event_time, session_id, event_type, event_properties, user_properties FROM `dataset_dev.bq_events_all`
-	    WHERE session_id = (SELECT session_id FROM dataset_dev.bq_events_all WHERE event_type IN ({})
+	    SELECT insert_id, client_event_time, session_id, event_type, event_properties, user_properties FROM `dataset_dev.bq_events_all`
+	    WHERE session_id = (SELECT session_id FROM dataset_dev.bq_events_all WHERE event_type IN ({}) ORDER BY RAND() LIMIT 1) 
+	    AND user_properties NOT LIKE '%anonymousId%' ORDER BY client_event_time;
 	""".format(', '.join(["'{}'".format(i) for i in event_types]))
-
-	if user_id is not None:
-		query += " AND user_id = {} ".format(user_id)
-
-	if session_id is not None:
-		query += " AND session_id = {} ".format(session_number)
-	else:
-		query += " ORDER BY RAND() "
-
-	query += "LIMIT 1) "
-
-	if not allow_anon:
-		query += " AND user_properties NOT LIKE '%anonymousId%' ORDER BY client_event_time"
-
 	out_df = query_BQ(query)
 	return out_df
