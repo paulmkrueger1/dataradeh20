@@ -18,8 +18,8 @@ storage_client = storage.Client(project='manymoons-215635')
 bucket_name = 'raw-events-prod'
 bucket = storage_client.get_bucket(bucket_name)
 
-KEY = "22f09c1b641be78951bc3cc2e21024f9"
-SECRET = "3bfb1703145dab5b1b659f7d05d381d4"
+KEY = "API_KEY"
+SECRET = "API_SECRET"
 
 def make_request(endpoint, params = ()):
     """
