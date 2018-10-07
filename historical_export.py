@@ -63,14 +63,14 @@ def prep_columns(df):
     to_bool = ['is_attribution_event']
     
     for col in df.columns:
-        if col in to_str:
-	        df[col] = df[col].astype(str)
-        elif col in to_list:
-            df[col] = df[col].astype(list)
-        elif col in to_int:
-            df[col] = df[col].astype(int)
-        elif col in to_bool:
-            df[col] = df[col].astype(bool)
+        # if col in to_str:
+        df[col] = df[col].astype(str)
+        # elif col in to_list:
+            # df[col] = df[col].astype(list)
+        # elif col in to_int:
+            # df[col] = df[col].astype(int)
+        # elif col in to_bool:
+            # df[col] = df[col].astype(bool)
     
     return df
 
