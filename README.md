@@ -11,4 +11,4 @@ processing
 - Session Processing: Functions for processing and aligning session data
 - Image Processing: Image readers and vectorizers
 
-# Continuous Amplitude-to-GoogleStorage Job is on Google VM 'instance-2', running hourly and saving data to raw-events-prod Bucket.
+### Continuous Amplitude-to-GoogleStorage Job is on Google VM 'instance-2', running hourly and saving data to raw-events-prod Bucket.
