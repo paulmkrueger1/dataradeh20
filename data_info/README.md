@@ -33,7 +33,7 @@ Our current product feed is located in the **Porsche** MySQL database that can b
  
 ### Users
 
-We additionally use Google **FireBase** database and storage:
+We additionally use Google **Firebase** database and storage:
  * The  <a href="https://console.firebase.google.com/u/1/project/screenshop-73386/database">database</a> is a real-time snapshot of current users with their current screenshots and other timely data.
  * The <a href="https://console.firebase.google.com/u/1/project/screenshop-73386/storage/screenshop-73386.appspot.com/files">storage</a> part of firebase stores all historical user screenshots by user_id. 
  
