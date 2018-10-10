@@ -1,4 +1,5 @@
-from .clients import bigquery_client, APPSEE_URL, APPSEE_API_KEY, APPSEE_API_SECRET
+from .clients import bigquery_client
+
 from ..processing.extractors import extract_event_types
 from ..processing.session_processing import process_appsee_sessions
 
@@ -7,26 +8,29 @@ import pandas as pd
 import json
 import os
 
+try:
+	from .clients import APPSEE_URL, APPSEE_API_KEY, APPSEE_API_SECRET
+	def get_appsee_sessions(user_id, start_date, end_date):
+		payload = {
+			'apikey': APPSEE_API_KEY, 
+			'apisecret': APPSEE_API_SECRET, 
+			'fromdate': start_date, 
+			'todate': end_date, 
+			'userid': user_id
+		}
 
-def get_appsee_sessions(user_id, start_date, end_date):
-	payload = {
-		'apikey': APPSEE_API_KEY, 
-		'apisecret': APPSEE_API_SECRET, 
-		'fromdate': start_date, 
-		'todate': end_date, 
-		'userid': user_id
-	}
-
-	r = requests.get(url = APPSEE_URL, params=payload)
-	if r.status_code == 200:
-		print('Session data received. Processing output...')
-		sessions_json = r.json()
-		output_dfs = process_appsee_sessions(sessions_json)
-		print('Returning {} sessions'.format(len(output_dfs)))
-		return output_dfs
-	else:
-		print('Returning error..')
-		return r
+		r = requests.get(url = APPSEE_URL, params=payload)
+		if r.status_code == 200:
+			print('Session data received. Processing output...')
+			sessions_json = r.json()
+			output_dfs = process_appsee_sessions(sessions_json)
+			print('Returning {} sessions'.format(len(output_dfs)))
+			return output_dfs
+		else:
+			print('Returning error..')
+			return r
+except:
+	print('No AppSee Credentials detected. Cannot use get_appsee_sessions()')
 
 def schema_row_to_dict(schema_row):
 	"""
@@ -74,7 +78,7 @@ def generate_event_type_map(limit=100000):
 def get_random_amplitude_session(event_types, 
 	columns = ['insert_id', 'uuid', 'client_event_time', 'session_id', 'event_type', 'event_properties', 'user_properties']):
 	"""
-	Grabs all Amplitude events from random user session with at least 1 event being of the specified input types
+	Grabs all Amplitude events (via bigQuery) from random user session with at least 1 event being of the specified input types
 
 	Args:
 	  event_types -- <[]str> list of event_types
