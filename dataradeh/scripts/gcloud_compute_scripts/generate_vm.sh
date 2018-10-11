@@ -23,13 +23,13 @@ while getopts ":i:z:n:g:c" opt; do
   esac
 done
 
-# gcloud compute instances create $instance_name \
-#	--zone=$zone \
-#	--image-family=$image_family \
-#	--maintenance-policy=TERMINATE \
-#	--accelerator="type=${gpu_type},count=${gpu_count}" \
-#	--metadata='install-nvidia-driver=True' \
-#	--service-account='data-science-2@manymoons-215635.iam.gserviceaccount.com'
+gcloud compute instances create $instance_name \
+	--zone=$zone \
+	--image-family=$image_family \
+	--maintenance-policy=TERMINATE \
+	--accelerator="type=${gpu_type},count=${gpu_count}" \
+	--metadata='install-nvidia-driver=True' \
+	--service-account='data-science-2@manymoons-215635.iam.gserviceaccount.com'
 
 # TODO: Investigate if we should use scopes (https://cloud.google.com/compute/docs/access/create-enable-service-accounts-for-instances)
 
